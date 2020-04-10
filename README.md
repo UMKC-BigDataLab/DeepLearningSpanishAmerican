@@ -1,2 +1,1 @@
-# DeepLearningSpanishAmerican
-Character Recognition in Seventeenth-Century Spanish American Notary Records Using Deep Learning
+# Deep learning on 17th century Spanish American Notarial Scripts
