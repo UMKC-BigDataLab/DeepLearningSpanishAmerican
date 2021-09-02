@@ -4,3 +4,5 @@
 - Nouf Alrasheed, Praveen Rao, and Viviana Grieco - Character Recognition of Seventeenth-Century Spanish American Notary Records Using Deep Learning. In DHQ: Digital Humanities Quarterly, 2021. (to appear)
 
 # Acknowledgments
+
+This work was funded by the National Endowment for the Humanities (NEH) under Grant No. HAA-271747-20.
