@@ -1,0 +1,5 @@
+classes = 1
+train = words/train.txt
+valid = words/test.txt
+names = words/classes.names
+backup = backup/

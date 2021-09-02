@@ -1,0 +1,13 @@
+numpy
+opencv-python==4.1.2.30
+pandas
+matplotlib
+tensorflow==2.4.1
+keras==2.2.5
+keras_ocr
+scipy==1.1.0
+sklearn
+h5py==2.10.0
+xlrd
+rdflib
+imutils

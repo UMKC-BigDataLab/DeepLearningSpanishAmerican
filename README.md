@@ -1,1 +1,5 @@
-# Deep learning on 17th century Spanish American Notarial Scripts
+# Publications
+
+- Nouf Alrasheed, Shivika Prasanna, Ryan Rowland, Praveen Rao, Viviana Grieco, and Martin Wasserman - Evaluation of Deep Learning Techniques for Content Extraction in Spanish Colonial Notary Records. In 3rd Workshop on Structuring and Understanding of Multimedia Heritage Contents (SUMAC), co-located with ACM Multimedia 2021, 7 pages, 2021. (to appear)
+
+# Acknowledgments

@@ -1,0 +1,10 @@
+/mydata/exp/darknet/words/images/44.jpg
+/mydata/exp/darknet/words/images/45.jpg
+/mydata/exp/darknet/words/images/33.jpg
+/mydata/exp/darknet/words/images/32.jpg
+/mydata/exp/darknet/words/images/8.jpg
+/mydata/exp/darknet/words/images/69.jpg
+/mydata/exp/darknet/words/images/47.jpg
+/mydata/exp/darknet/words/images/54.jpg
+/mydata/exp/darknet/words/images/35.jpg
+/mydata/exp/darknet/words/images/56.jpg
