@@ -1,8 +1,8 @@
 '''
 Developed by Shivika Prasanna on 05/17/2021.
-Last updated on 09/10/2021.
+Last updated on 02/03/2022.
 Get predictions using Keras-OCR retrained weights.
-Run in terminal as:  python3 predictions.py -i <images_path> -m <model_path>
+Run in terminal as:  python3 predictions.py -i <images_path> -o <output_path> -j <json_path> -m <model_path>
 '''
 
 import numpy as np
@@ -65,3 +65,5 @@ def predict(model_path, image_output_path, json_output_path):
                 json.dump(image_result, open(json_path, "w"))
 
     print("Done predicting!")
+
+#predict(model_path, image_output_path, json_output_path)
