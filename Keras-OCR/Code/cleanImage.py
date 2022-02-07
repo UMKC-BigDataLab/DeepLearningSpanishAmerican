@@ -2,7 +2,7 @@
 Created on %(April 2019)
 @author: %(Nouf Arasheed)
 3x3 image bluring is used to remove background noise.
-Last updated on 09/11/21 by Shivika Prasanna.
+Last updated on 07/02/22 by Shivika Prasanna.
 """
 
 import os
@@ -31,15 +31,17 @@ def clean(input_path, output_path):
     for imagePath in imagePaths:
         if imagePath.endswith('.jpg'):
             head, tail = os.path.split(imagePath)
-            dir_path = output_path+head.split("/")[-1]+"/"
+            dir_path = os.path.join(output_path, head.split("/")[-1]+"/")
             os.makedirs(dir_path, exist_ok=True)
-            print("Storing image here:", dir_path+tail)
 
             img = cv2.imread(imagePath)
             blur = cv2.blur(img, (3, 3))
             th, dst = cv2.threshold(blur, 127, maxValue, cv2.THRESH_BINARY)
             
-            cv2.imwrite(dir_path+tail, dst)
+            cv2.imwrite(os.path.join(dir_path, '', tail), dst)
+            print("Storing image here:", os.path.join(dir_path, tail))
 
     print("Done cleaning!")
 
+# UNCOMMENT THIS IF USING THIS AS A STAND-ALONE CODE.
+# clean(input_path, output_path)
