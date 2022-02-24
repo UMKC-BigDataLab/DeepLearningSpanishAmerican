@@ -179,9 +179,9 @@ for d in os.walk(rootpath):
                                     g2.add((boundingBox, b.botRighty, Literal(bot_right_y,  datatype=XSD.float)))
                                     g2.add((word, b.predictedBy, b.keras))
                         #print(g2.serialize(format='turtle').decode('utf-8'))
-    if docID != '':
-        g2.serialize(docID + '-words-'+datetime.today().strftime('%Y-%m-%d')+'.ttl',format='turtle')
-        docID = ''
+    	if docID != '':
+        	g2.serialize(docID + '-words-'+datetime.today().strftime('%Y-%m-%d')+'.ttl',format='turtle')
+        	docID = ''
         
 print("Populated the KG!")
 
