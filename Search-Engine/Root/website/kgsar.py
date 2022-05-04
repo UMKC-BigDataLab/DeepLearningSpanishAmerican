@@ -18,6 +18,9 @@ If using conda:
         Subsequent runs, activate conda and then run the above command: > conda activate flask_test1
 '''
 
+from distutils.log import debug
+from re import S
+from this import s
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS, cross_origin
 from flask_restful import Resource, Api, reqparse
@@ -49,8 +52,8 @@ ttl_folder = str(args['ttl'])
 root = str(args['root'])
 root = "/images/"
 # uncomment below to use locally
-# root = '/Users/shivikaprasanna/Downloads/Root/Images/'
-ttl_folder = "/data"
+root = "D:/bigdataproject/DeepLearningSpanishAmerican/Search-Engine/Root/Images"
+ttl_folder = "D:/bigdataproject/DeepLearningSpanishAmerican/Search-Engine/Root/Turtles"
 
 # Print all versions here
 print("Python: ", sys.version)
@@ -78,8 +81,7 @@ class SearchWord(Resource):
         result_limit = limit[args['display']]
         
         # Executing query
-        result = server.query("select distinct ?page ?word ?wordVal ?gram ?boundingBox ?coordinateType ?coordinate where {values ?coordinateType { <http://kgsar.org/botRightx> <http://kgsar.org/botRighty> <http://kgsar.org/topLeftx> <http://kgsar.org/topLefty> } . ?page <http://kgsar.org/hasWord> ?word . ?word <http://kgsar.org/wordValue> ?wordVal . { ?word <http://kgsar.org/wordValue> ?'%s' . } UNION {?word <http://kgsar.org/hasGram> ?gram . ?gram <http://kgsar.org/gramValue> ?'%s' .} ?word <http://kgsar.org/at> ?boundingBox . ?boundingBox ?coordinateType ?coordinate. } order by desc(?page)" % (args['word'].lower(), args['word'].lower()))
-
+        result = server.query('select distinct ?page ?word ?wordVal ?boundingBox ?coordinateType ?coordinate ?score ?rank where {values ?coordinateType { <http://kgsar.org/botRightx> <http://kgsar.org/botRighty> <http://kgsar.org/topLeftx> <http://kgsar.org/topLefty> } . ?page <http://kgsar.org/hasWord> ?word . ?word <http://kgsar.org/wordValue> ?wordVal . ?wordVal bds:search "%s OR %s OR %s" .  ?wordVal bds:relevance ?score . ?wordVal bds:rank ?rank . ?word <http://kgsar.org/at> ?boundingBox .  ?boundingBox ?coordinateType ?coordinate . } order by  ?rank desc(?page)' % (args['word'].lower(), args['word'].lower(),args['word'].lower()))
         # print("Result: ", result)
         coordinates = {}
         group_pages = {}
@@ -199,4 +201,4 @@ def addAnnotations():
     return data
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='localhost', port=5001,debug=True)
