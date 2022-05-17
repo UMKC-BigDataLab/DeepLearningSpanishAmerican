@@ -52,8 +52,8 @@ ttl_folder = str(args['ttl'])
 root = str(args['root'])
 root = "/images/"
 # uncomment below to use locally
-root = "D:/bigdataproject/DeepLearningSpanishAmerican/Search-Engine/Root/Images"
-ttl_folder = "D:/bigdataproject/DeepLearningSpanishAmerican/Search-Engine/Root/Turtles"
+root = "D:/bigdataproject/DeepLearningSpanishAmerican/Search-Engine/Root/website/Images"
+ttl_folder = "D:/bigdataproject/DeepLearningSpanishAmerican/Search-Engine/Root/website/Turtles"
 
 # Print all versions here
 print("Python: ", sys.version)
@@ -81,28 +81,53 @@ class SearchWord(Resource):
         result_limit = limit[args['display']]
         
         # Executing query
-        result = server.query('select distinct ?page ?word ?wordVal ?boundingBox ?coordinateType ?coordinate ?score ?rank where {values ?coordinateType { <http://kgsar.org/botRightx> <http://kgsar.org/botRighty> <http://kgsar.org/topLeftx> <http://kgsar.org/topLefty> } . ?page <http://kgsar.org/hasWord> ?word . ?word <http://kgsar.org/wordValue> ?wordVal . ?wordVal bds:search "%s OR %s OR %s" .  ?wordVal bds:relevance ?score . ?wordVal bds:rank ?rank . ?word <http://kgsar.org/at> ?boundingBox .  ?boundingBox ?coordinateType ?coordinate . } order by  ?rank desc(?page)' % (args['word'].lower(), args['word'].lower(),args['word'].lower()))
-        # print("Result: ", result)
+        word_val = args["word"]
+        upper_length = len(word_val)
+        lower_length = 3
+        wordlist=[]
+        for i in range(upper_length-lower_length+1):
+            if upper_length > lower_length: 
+                print(word_val[i:i+lower_length])
+                wordlist.append(word_val[i:i+lower_length])
+
+
+        query_1 = 'select distinct ?page ?word ?wordVal ?boundingBox ?coordinateType ?coordinate ?score ?rank where {values ?coordinateType { <http://kgsar.org/botRightx> <http://kgsar.org/botRighty> <http://kgsar.org/topLeftx> <http://kgsar.org/topLefty> } . ?page <http://kgsar.org/hasWord> ?word . ?word <http://kgsar.org/wordValue> ?wordVal . ?wordVal bds:search '
+
+
+        query_2 = ".  ?wordVal bds:relevance ?score . ?wordVal bds:rank ?rank . ?word <http://kgsar.org/at> ?boundingBox .  ?boundingBox ?coordinateType ?coordinate . } order by desc(?rank)"
+
+        query_3 = '" {}'.format(word_val)
+        for inx in wordlist:
+            query_3 += '  OR {} '.format(inx)
+        query_3 += '"'
+        query = query_1 + query_3 + query_2
+        print("here is the query----->>>>",query)
+        result = server.query(query)
+        print(word_val)
+
         coordinates = {}
         group_pages = {}
+        counter = 0
         for a in result['results']['bindings']:
             page = a['page']['value']
             bb = a['boundingBox']['value'].split('/')[-1]
 
             if page not in group_pages:
                 group_pages[page] = {"score": []}
-            
+
             word_uri = a["word"]["value"]
             if word_uri not in group_pages[page]:
-                group_pages[page][word_uri] = {"word" : "", "boundingbox" : {}}
+                group_pages[page][word_uri] = {"word": "", "boundingbox": {}}
                 res_word = a['wordVal']['value']
-                score = fuzz.ratio(args['word'], res_word)
+                score = float(a['score']['value'])
                 group_pages[page][word_uri]['word'] = res_word
                 group_pages[page]['score'].append(score)
-
-            group_pages[page][word_uri]['boundingbox'][a['coordinateType']['value'].split('/')[-1]] = int(float(a['coordinate']['value']))
-
-        group_pages = sorted(group_pages.items(), key=lambda x : sum(x[1]['score']), reverse=True)
+            group_pages[page][word_uri]['boundingbox'][a['coordinateType']
+                                                    ['value'].split('/')[-1]] = int(float(a['coordinate']['value']))
+            counter +=1
+            
+        group_pages = sorted(group_pages.items(),
+                            key=lambda x: sum(x[1]['score']), reverse=True)
 
         imgPaths = []
         actual_images = []
