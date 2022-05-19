@@ -85,15 +85,15 @@ class SearchWord(Resource):
         upper_length = len(word_val)
         lower_length = 3
         wordlist=[]
+        wordlist.append(word_val)
         for i in range(upper_length-lower_length+1):
             if upper_length > lower_length: 
-                print(word_val[i:i+lower_length])
+                # print(word_val[i:i+lower_length])
                 wordlist.append(word_val[i:i+lower_length])
-
+        
+        print("word with total n grams are here ------------------------->>>>> ", wordlist)
 
         query_1 = 'select distinct ?page ?word ?wordVal ?boundingBox ?coordinateType ?coordinate ?score ?rank where {values ?coordinateType { <http://kgsar.org/botRightx> <http://kgsar.org/botRighty> <http://kgsar.org/topLeftx> <http://kgsar.org/topLefty> } . ?page <http://kgsar.org/hasWord> ?word . ?word <http://kgsar.org/wordValue> ?wordVal . ?wordVal bds:search '
-
-
         query_2 = ".  ?wordVal bds:relevance ?score . ?wordVal bds:rank ?rank . ?word <http://kgsar.org/at> ?boundingBox .  ?boundingBox ?coordinateType ?coordinate . } order by desc(?rank)"
 
         query_3 = '" {}'.format(word_val)
@@ -101,10 +101,8 @@ class SearchWord(Resource):
             query_3 += '  OR {} '.format(inx)
         query_3 += '"'
         query = query_1 + query_3 + query_2
-        print("here is the query----->>>>",query)
+        print("here is the query----->>>>>",query)
         result = server.query(query)
-        print(word_val)
-
         coordinates = {}
         group_pages = {}
         counter = 0
@@ -125,7 +123,7 @@ class SearchWord(Resource):
             group_pages[page][word_uri]['boundingbox'][a['coordinateType']
                                                     ['value'].split('/')[-1]] = int(float(a['coordinate']['value']))
             counter +=1
-            
+        print("total number of count ~~~~~~~~~~~~~~~~ ", counter)
         group_pages = sorted(group_pages.items(),
                             key=lambda x: sum(x[1]['score']), reverse=True)
 
