@@ -70,7 +70,6 @@ docID = ''
 for d in os.walk(rootpath):
     for dir in d[1]:
         path = os.path.join(d[0], dir)
-        print("Path in kg.py: ", path)
         if os.path.isdir(path) and not dir.startswith('.'):
             for filename in os.listdir(path):
                 if os.path.isfile(os.path.join(path, filename)) and filename.endswith('.json'):
@@ -124,20 +123,19 @@ for d in os.walk(rootpath):
                                 lower_length = 3
 
                                  
-                                for i in range(upper_length-lower_length+1):
-                                    if upper_length > lower_length: 
-                                        if 'Yolo' in path:
-                                            gram = URIRef(
-                                                'http://kgsar.org/document/{}/page{}/word{}{}/gram{}'.format(documentIndex, pageIndex, "Y", wordIndex, gramIndex))
-                                            gramIndex += 1
-                                        elif 'Keras' in path:
-                                            gram = URIRef(
-                                                'http://kgsar.org/document/{}/page{}/word{}{}/gram{}'.format(documentIndex, pageIndex, "K", wordIndex, gramIndex))
-                                            gramIndex += 1
-                                        g2.add((gram, RDF.type, b.gram))
-                                        g2.add((word, b.hasGram, gram))
-                                        g2.add((gram, b.gramValue, Literal(
-                                            item['prediction'][i:i+lower_length])))
+                                # for i in range(upper_length-lower_length+1):
+                                #     if upper_length > lower_length: 
+                                #         if 'Yolo' in path:
+                                #             gram = URIRef(
+                                #                 'http://kgsar.org/document/{}/page{}/word{}{}/gram{}'.format(documentIndex, pageIndex, "Y", wordIndex, gramIndex))
+                                #             gramIndex += 1
+                                #         elif 'Keras' in path:
+                                #             gram = URIRef(
+                                #                 'http://kgsar.org/document/{}/page{}/word{}{}/gram{}'.format(documentIndex, pageIndex, "K", wordIndex, gramIndex))
+                                #             gramIndex += 1
+                                g2.add((word, RDF.type, b.gram))
+                                g2.add((word, b.hasGram, word))
+                                g2.add((word, b.gramValue, Literal(item['prediction'])))
 
                                 if 'Yolo' in path:
                                     boundingBox = URIRef(
@@ -179,9 +177,10 @@ for d in os.walk(rootpath):
                                     g2.add((boundingBox, b.botRighty, Literal(bot_right_y,  datatype=XSD.float)))
                                     g2.add((word, b.predictedBy, b.keras))
                         #print(g2.serialize(format='turtle').decode('utf-8'))
-    	if docID != '':
-        	g2.serialize(docID + '-words-'+datetime.today().strftime('%Y-%m-%d')+'.ttl',format='turtle')
-        	docID = ''
+        if docID != '':
+            g2.serialize(docID + '-words-'+datetime.today().strftime('%Y-%m-%d')+'.ttl',format='turtle')
+            print("Saving turtle file for DocID {}".format(docID))
+            docID = ''
         
 print("Populated the KG!")
 
