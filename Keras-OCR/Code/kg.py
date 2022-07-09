@@ -1,11 +1,10 @@
 '''
 Developed by Shivika Prasanna on 05/25/2021.
-Last updated on 09/20/2021.
+Last updated on 07/08/2022.
 Consume all predictions in JSON format to generate a KG.
 
 xlrd, rdflib, imutils, matplotlib
-Run in terminal as:  > java -server -Xmx4g -jar Downloads/blazegraph.jar
-> time python3 kg.py -i <full path to root containing original images> -o <full path to store cleaned images> -j <full path to store JSON files> -r <path to JSON files>  -m <path to model> -e <excel file>
+Run in terminal as: > time python3 kg.py -i <full path to root containing original images> -o <full path to store cleaned images> -j <full path to store JSON files> -r <path to JSON files>  -m <path to model> -e <excel file>
 '''
 
 import sys, os
@@ -49,7 +48,7 @@ g2 = Graph()
 b = Namespace('http://kgsar.org/')
 
 # Change .csv to JSON format
-out = pd.read_excel(excel)
+out = pd.read_excel(excel, engine='openpyxl')
 out.to_csv("./data.csv", index=False, encoding='utf-8')
 data = pd.read_csv("./data.csv", sep=",")
 mapping = {item:i for i, item in enumerate(data["Name of Notary"].unique())}
@@ -119,8 +118,8 @@ for d in os.walk(rootpath):
                                     if item['prediction'] != "":
                                         g2.add((word, b.wordValue, Literal(item['prediction'])))
                                 
-                                upper_length = len(item['prediction'])
-                                lower_length = 3
+                                # upper_length = len(item['prediction'])
+                                # lower_length = 3
 
                                  
                                 # for i in range(upper_length-lower_length+1):
@@ -133,9 +132,9 @@ for d in os.walk(rootpath):
                                 #             gram = URIRef(
                                 #                 'http://kgsar.org/document/{}/page{}/word{}{}/gram{}'.format(documentIndex, pageIndex, "K", wordIndex, gramIndex))
                                 #             gramIndex += 1
-                                g2.add((word, RDF.type, b.gram))
-                                g2.add((word, b.hasGram, word))
-                                g2.add((word, b.gramValue, Literal(item['prediction'])))
+                                # g2.add((word, RDF.type, b.gram))
+                                # g2.add((word, b.hasGram, word))
+                                # g2.add((word, b.gramValue, Literal(item['prediction'])))
 
                                 if 'Yolo' in path:
                                     boundingBox = URIRef(
