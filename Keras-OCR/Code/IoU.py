@@ -87,9 +87,6 @@ with open(predictions_path) as json_file:
 
           bb2_list.append({"x1": top_left_x, "x2": top_left_y, "y1": bot_right_x, "y2": bot_right_y, "pred": prediction})
 
-# print("BB1: ", bb1_list)
-# print("BB2: ", bb2_list)
-
 Detection = namedtuple("Detection", ["image_path", "gt", "pred"])
 
 def bb_intersection_over_union(boxA, boxB):

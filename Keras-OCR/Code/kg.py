@@ -2,8 +2,7 @@
 Developed by Shivika Prasanna on 05/25/2021.
 Last updated on 07/08/2022.
 Consume all predictions in JSON format to generate a KG.
-
-xlrd, rdflib, imutils, matplotlib
+Packages required: xlrd, rdflib, imutils, matplotlib
 Run in terminal as: > time python3 kg.py -i <full path to root containing original images> -o <full path to store cleaned images> -j <full path to store JSON files> -r <path to JSON files>  -m <path to model> -e <excel file>
 '''
 
@@ -96,7 +95,6 @@ for d in os.walk(rootpath):
                             for wordIndex, item in enumerate(p['output']):
                                 ind_ctr += 1
                                 print("Index ctr: ", ind_ctr)
-                                # wordIndex = datetime.datetime.now().time()
                                 temp_word = None
                                 if 'Yolo' in path:
                                     temp_word = 'y'
@@ -175,7 +173,7 @@ for d in os.walk(rootpath):
                                     g2.add((boundingBox, b.botRightx, Literal(bot_right_x,  datatype=XSD.float)))
                                     g2.add((boundingBox, b.botRighty, Literal(bot_right_y,  datatype=XSD.float)))
                                     g2.add((word, b.predictedBy, b.keras))
-                        #print(g2.serialize(format='turtle').decode('utf-8'))
+
         if docID != '':
             g2.serialize(docID + '-words-'+datetime.today().strftime('%Y-%m-%d')+'.ttl',format='turtle')
             print("Saving turtle file for DocID {}".format(docID))
