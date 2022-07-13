@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         widthScale = image_rect.width / main_image.naturalWidth;
         heightScale = image_rect.height / main_image.naturalHeight;
         draw_bounding_boxes();
-    }
+        }
 
     function save_bounding_boxes() {
         var p_bounding_boxes = [];
@@ -324,7 +324,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.getElementById("save_button").addEventListener('click', function(event){
         save_bounding_boxes();
         save_annotations();
-        alert("Email has been sent with the annotations!");
+        if (confirm('Do you want to save the annotations?')){
+            alert("Annotations have been saved! \nEmail has been sent with the annotations!");
+          } else {
+            alert("Annotations have not been saved!");
+          }
     });
 
     document.getElementById("cancel_button").addEventListener('click', function(event){
@@ -338,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     document.getElementById("instructions_button").addEventListener('click', function(event){
-        alert('To draw boxes, click once-drag-click again.')
+    alert("To draw boxes, click once on the word, drag, and then resize the box accordingly around the desired word to annotate.")
     });
 
     function save_annotations() {
@@ -370,6 +374,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         // Sending data with the request
         xhr.send(d_annotations);
-    }
-    
-});
+    } 
+    });
