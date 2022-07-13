@@ -132,7 +132,7 @@ for d in os.walk(rootpath):
                                 #             gramIndex += 1
                                 # g2.add((word, RDF.type, b.gram))
                                 # g2.add((word, b.hasGram, word))
-                                # g2.add((word, b.gramValue, Literal(item['prediction'])))
+                                # g2.add((word, b.gramValue, Literal(item['prediction'][i:i_lower_length])))
 
                                 if 'Yolo' in path:
                                     boundingBox = URIRef(
