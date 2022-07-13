@@ -52,8 +52,8 @@ ttl_folder = str(args['ttl'])
 root = str(args['root'])
 root = "/images/"
 # uncomment below to use locally
-root = "D:/bigdataproject/DeepLearningSpanishAmerican/Search-Engine/Root/website/Images"
-ttl_folder = "D:/bigdataproject/DeepLearningSpanishAmerican/Search-Engine/Root/website/Turtles"
+root = "C:/Users/pooja/testing/DeepLearningSpanishAmerican/Search-Engine/Root/Images"
+ttl_folder = "C:/Users/pooja/testing/DeepLearningSpanishAmerican/Search-Engine/Root/Turtles"
 
 # Print all versions here
 print("Python: ", sys.version)
@@ -93,7 +93,7 @@ class SearchWord(Resource):
         
         print("word with total n grams are here ------------------------->>>>> ", wordlist)
 
-        query_1 = 'select distinct ?page ?word ?wordVal ?boundingBox ?coordinateType ?coordinate ?score ?rank where {values ?coordinateType { <http://kgsar.org/botRightx> <http://kgsar.org/botRighty> <http://kgsar.org/topLeftx> <http://kgsar.org/topLefty> } . ?page <http://kgsar.org/hasWord> ?word . ?word <http://kgsar.org/wordValue> ?wordVal . ?wordVal bds:search '
+        query_1 = " select distinct ?page ?word ?wordVal ?boundingBox ?coordinateType ?coordinate ?score ?rank where {values ?coordinateType { <http://kgsar.org/botRightx> <http://kgsar.org/botRighty> <http://kgsar.org/topLeftx> <http://kgsar.org/topLefty> } . ?page <http://kgsar.org/hasWord> ?word . ?word <http://kgsar.org/wordValue> ?wordVal . ?wordVal bds:search "
         query_2 = ".  ?wordVal bds:relevance ?score . ?wordVal bds:rank ?rank . ?word <http://kgsar.org/at> ?boundingBox .  ?boundingBox ?coordinateType ?coordinate . } order by desc(?rank)"
 
         query_3 = '" {}'.format(word_val)
