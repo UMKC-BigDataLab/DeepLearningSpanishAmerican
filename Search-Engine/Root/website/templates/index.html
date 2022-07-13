@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="/path/to/cdn/jquery.min.js"></script>
+    <script src="https://unpkg.com/js-image-zoom/js-image-zoom.js"></script>
   </head>
 
   <body ng-app = 'selectDemoBasic'>
@@ -22,13 +24,13 @@
     </div>
 
     <md-card>
-      <img ng-src="static/title.png" class="md-card-image" alt="KGSAR" id="header_img" style="height:100px; width:100%;">
+      <img ng-src="static/title.png" class="md-card-image" alt="KGSAR" id="header_img" style="height:130px; width:100%;">
     </md-card>
 
     <div ng-controller="AppCtrl as ctrl" ng-cloak layout="column">
       <md-card>
         <md-card-content style="height: 90px;">
-          <div layout="row" layout-align="center start" style="font-size:16px;">
+          <div layout="row" layout-align="center start" style="font-size:18px;">
             <md-input-container>
               <label></label>
               <input type="text" ng-model="ctrl.searchWord" placeholder="Type word here" size="50">
@@ -60,16 +62,17 @@
 
         <md-card-content ng-show="ctrl.showCarousel">
           <div ng-show="ctrl.loadingData" class="centered">
-            <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+          <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
           </div>
           <div ng-hide="ctrl.loadingData">
             <div>
               <uib-carousel  active="active" interval="myInterval" no-wrap="noWrapSlides">
                 <uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-                  <img ng-src="data:image/jpg;base64,[[slide.image]]" class="main-image" loading="lazy" ng-mouseover="ctrl.zoomImage([[slide.id]], true)" ng-mouseout="ctrl.zoomImage([[slide.id]], false)">
+                  <img ng-src="data:image/jpg;base64,[[slide.image]]" class="main-image" id="img[[slide.id]]" loading="lazy" ng-mouseover="ctrl.zoomImage([[slide.id]], true)" ng-mouseout="ctrl.zoomImage([[slide.id]], false)">
                   <div class="carousel-caption" style="color:#FF0000">
                     <h4>[[slide.path]]</h4>
                   </div>
+
                 </uib-slide>
               </uib-carousel>
             </div>
