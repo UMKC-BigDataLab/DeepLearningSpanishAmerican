@@ -92,4 +92,19 @@
       }
     };
   });
+
+  ctrl.zoomImage = function(id, z){
+    var imgId = document.getElementById("img"+id);
+    if(z){        
+      imgId.onmousemove = function(e){
+        var x = e.clientX - 425;
+        var y = e.clientY - 250;
+        //img1.css({'-webkit-transform-origin-x': x+'px', '-webkit-transform-origin-y':y+'px', '-webkit-transform': 'scale(2)', '-ms-transform':'scale(2)'});
+        imgId.style.cssText = '-webkit-transform-origin-x:'+ x +'px;' + '-webkit-transform-origin-y:' + y +'px;' + '-webkit-transform: scale(2);' + '-ms-transform:scale(2);';
+      };
+    }
+    else{
+      imgId.style.cssText = '-webkit-transform: scale(1);' + '-ms-transform:scale(1);';
+    }
+  } 
 })();
