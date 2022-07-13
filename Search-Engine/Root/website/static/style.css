@@ -14,9 +14,42 @@
   float: left
 }
 
-.carousel-caption {
-  color: #78A2CC;
+.carousel{
+  margin-left: 25%;
+  margin-right: 25%;
+  bottom:10px;
+  position:fixed;
+  width:50%;
 }
+.carousel-caption {
+color: #bdbdc2;
+position: fixed;
+top: 503px;
+}
+
+.carousel-inner { 
+  padding-bottom:65px;
+  position: fixed;
+ }
+
+.carousel .carousel-indicators li 
+{  
+  background-color: gray;
+  
+}
+
+.carousel-indicators{
+  position:fixed;
+  right:0;
+  bottom:150px;
+  top: 510px;
+  left:0px; 
+ }
+
+.carousel .carousel-indicators li.active
+{ 
+  background-color: var(--primary); 
+} 
 
 .floating-menu {
     z-index: 9999;
@@ -36,7 +69,11 @@
   height:450px;
   width:700px;
   padding-top:50px;
+  padding-left: 10px;
+  padding-right:10px;
 }
+
+
 
 .centered {
   position: fixed;
@@ -49,12 +86,12 @@
 
 
 .md-card-image {
-  height: 90px;
+  height: 100px;
   width: 100%;
   box-sizing: border-box;
   display: flex;
   flex: 0 0 auto;
-}
+} 
 
 #buttons-div {
   display: block;
@@ -65,3 +102,11 @@
   background: #F5F5F5; */
   color : #C3C3C3;
 }
+
+
+/* .main-image: {
+  -webkit-transform-origin-x: inherit;
+  -webkit-transform-origin-y: inherit;
+  -webkit-transform: scale(2);
+  -ms-transform: scale(2);
+} */
