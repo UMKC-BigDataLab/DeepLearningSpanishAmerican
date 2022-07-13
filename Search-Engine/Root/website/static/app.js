@@ -22,7 +22,7 @@
     ctrl.showCarousel = false;
 
     ctrl.displayOptions = ('Default,Top 5,Top 10,All').split(',').map(function (num) { return { abbrev: num }; });
-
+    
     function create_UUID(){
       var dt = new Date().getTime();
       var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -91,20 +91,44 @@
         document.getElementById('correct').disabled = false;
       }
     };
-  });
 
-  ctrl.zoomImage = function(id, z){
-    var imgId = document.getElementById("img"+id);
-    if(z){        
-      imgId.onmousemove = function(e){
-        var x = e.clientX - 425;
-        var y = e.clientY - 250;
-        //img1.css({'-webkit-transform-origin-x': x+'px', '-webkit-transform-origin-y':y+'px', '-webkit-transform': 'scale(2)', '-ms-transform':'scale(2)'});
-        imgId.style.cssText = '-webkit-transform-origin-x:'+ x +'px;' + '-webkit-transform-origin-y:' + y +'px;' + '-webkit-transform: scale(2);' + '-ms-transform:scale(2);';
-      };
+    ctrl.zoomImage = function(id, z){
+      var imgId = document.getElementById("img"+id);
+      if(z){        
+        imgId.onmousemove = function(e){
+          var x = e.clientX - 425;
+          var y = e.clientY - 250;
+          //img1.css({'-webkit-transform-origin-x': x+'px', '-webkit-transform-origin-y':y+'px', '-webkit-transform': 'scale(2)', '-ms-transform':'scale(2)'});
+          imgId.style.cssText = '-webkit-transform-origin-x:'+ x +'px;' + '-webkit-transform-origin-y:' + y +'px;' + '-webkit-transform: scale(2);' + '-ms-transform:scale(2);';
+        };
+      }
+      else{
+        imgId.style.cssText = '-webkit-transform: scale(1);' + '-ms-transform:scale(1);';
+      }
     }
-    else{
-      imgId.style.cssText = '-webkit-transform: scale(1);' + '-ms-transform:scale(1);';
+    
+    function findScreenCoords(mouseEvent)
+    {
+      var xpos;
+      var ypos;
+      console.log('coord');
+      console.log(mouseEvent);
+
+      app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+        $scope.items = items;
+        $scope.selected = {
+          item: $scope.items[0]
+        };
+      
+        $scope.ok = function () {
+          $modalInstance.close($scope.selected.item);
+        };
+      
+        $scope.cancel = function () {
+          $modalInstance.dismiss('cancel');
+        };
+      });
     }
-  } 
+  });
 })();
