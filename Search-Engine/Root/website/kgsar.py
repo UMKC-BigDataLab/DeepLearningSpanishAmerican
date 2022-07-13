@@ -1,5 +1,5 @@
-'''Developed by Shivika Prasanna for Knowledge Graph for Spanish American Notarial Records (KGSAR).
-Last updated on 10/05/2021.
+'''Developed by Shivika Prasanna for Knowledge Graph for Spanish American Notarial Records (KGSAR) on 09/05/2021.
+Last updated on 13/07/2022.
 If using conda:
     - Create conda env: % conda create -n flask_test1
     - Activate conda env: % conda activate flask_test1
@@ -52,8 +52,8 @@ ttl_folder = str(args['ttl'])
 root = str(args['root'])
 root = "/images/"
 # uncomment below to use locally
-root = "C:/Users/pooja/testing/DeepLearningSpanishAmerican/Search-Engine/Root/Images"
-ttl_folder = "C:/Users/pooja/testing/DeepLearningSpanishAmerican/Search-Engine/Root/Turtles"
+root = "/DeepLearningSpanishAmerican/Search-Engine/Root/Images"
+ttl_folder = "/DeepLearningSpanishAmerican/Search-Engine/Root/Turtles"
 
 # Print all versions here
 print("Python: ", sys.version)
@@ -88,7 +88,6 @@ class SearchWord(Resource):
         wordlist.append(word_val)
         for i in range(upper_length-lower_length+1):
             if upper_length > lower_length: 
-                # print(word_val[i:i+lower_length])
                 wordlist.append(word_val[i:i+lower_length])
         
         print("word with total n grams are here ------------------------->>>>> ", wordlist)
@@ -134,7 +133,6 @@ class SearchWord(Resource):
             actual_images_item = {'path': "", 'bounding_boxes': []}
             key, words = item
             i = key.split('document/')
-            # i = key.split('page')
             tail = i[-1].split('/')
             folder = tail[-0]
             page = tail[1]
